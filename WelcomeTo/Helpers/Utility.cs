@@ -6,24 +6,26 @@ namespace WelcomeTo.Helpers
 {
     static class Utility
     {
-        public static List<ProjectCard> AllProject_1_Cards {
-            get {
-                    return new List<ProjectCard>
+        public static List<ProjectCard> AllProject_1_Cards
+        {
+            get
+            {
+                return new List<ProjectCard>
                     {
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/1-01.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/1-02.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/1-03.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/1-04.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/1-05.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/1-06.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/1-07.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/1-08.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/1-09.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/1-10.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/1-11.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/1-12.png" },
                     };
-                }
+            }
         }
 
         public static List<ProjectCard> AllProject_2_Cards
@@ -32,18 +34,18 @@ namespace WelcomeTo.Helpers
             {
                 return new List<ProjectCard>
                     {
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/2-01.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/2-02.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/2-03.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/2-04.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/2-05.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/2-06.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/2-07.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/2-08.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/2-09.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/2-10.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/2-11.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/2-12.png" },
                     };
             }
         }
@@ -54,21 +56,22 @@ namespace WelcomeTo.Helpers
             {
                 return new List<ProjectCard>
                     {
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/3-01.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/3-02.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/3-03.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/3-04.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/3-05.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/3-06.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/3-07.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/3-08.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/3-09.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/3-10.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/3-11.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/3-12.png" },
                     };
             }
         }
+        
         public static List<Card> AllCards
         {
             get
