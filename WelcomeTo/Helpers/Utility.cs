@@ -18,12 +18,12 @@ namespace WelcomeTo.Helpers
                         new ProjectCard { imgUrl = "/Content/Projects/1-04.png" },
                         new ProjectCard { imgUrl = "/Content/Projects/1-05.png" },
                         new ProjectCard { imgUrl = "/Content/Projects/1-06.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/1-07.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/1-08.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/1-09.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/1-10.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/1-11.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/1-12.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/1-07.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/1-08.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/1-09.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/1-10.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/1-11.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/1-12.png" },
                     };
             }
         }
@@ -40,12 +40,12 @@ namespace WelcomeTo.Helpers
                         new ProjectCard { imgUrl = "/Content/Projects/2-04.png" },
                         new ProjectCard { imgUrl = "/Content/Projects/2-05.png" },
                         new ProjectCard { imgUrl = "/Content/Projects/2-06.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/2-07.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/2-08.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/2-09.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/2-10.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/2-11.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/2-12.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/2-07.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/2-08.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/2-09.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/2-10.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/2-11.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/2-12.png" },
                     };
             }
         }
@@ -62,12 +62,12 @@ namespace WelcomeTo.Helpers
                         new ProjectCard { imgUrl = "/Content/Projects/3-04.png" },
                         new ProjectCard { imgUrl = "/Content/Projects/3-05.png" },
                         new ProjectCard { imgUrl = "/Content/Projects/3-06.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/3-07.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/3-08.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/3-09.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/3-10.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/3-11.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/3-12.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/3-07.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/3-08.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/3-09.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/3-10.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/3-11.png" },
+                        //new ProjectCard { imgUrl = "/Content/Projects/3-12.png" },
                     };
             }
         }
