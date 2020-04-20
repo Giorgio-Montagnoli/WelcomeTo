@@ -1,17 +1,48 @@
-﻿@model WelcomeTo.Models.IndexViewModel
+﻿@model WelcomeTo.Models.ViewModels.GameVM
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Partita";
 }
 
+<br/>
+<div id="gameCont">
+@Html.Partial("GameCards", Model)
+</div>
+
+<br />
 <div class="row">
-    <div class="col-md-4">
-        @Html.Partial("Card", Model.CardOne)
-    </div>
-    <div class="col-md-4">
-        @Html.Partial("Card", Model.CardTwo)
-    </div>
-    <div class="col-md-4">
-        @Html.Partial("Card", Model.CardThree)
+    <div class="col-md-12 text-center">
+        <input id="nextDraw" type="button" class="btn btn-primary" value="Pesca" />
     </div>
 </div>
 
+<div id="div_projects" style="display:none;">
+    @Html.Partial("PopoverPojects", Model.ProjectCards)
+</div>
+
+<a id="popBtn" tabindex="0" class="btn btn-lg btn-info" role="button" data-toggle="popover" data-trigger="focus" title="Projects">
+    Show Projects
+</a>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#nextDraw").click(function () {
+                $.ajax({
+                    method: "get",
+                    url: "@Url.Action("DrawAsync", "Home")"
+                }).done(function (result) {
+                    $("#gameCont").empty();
+                    $("#gameCont").html(result);
+                });
+            });
+
+            var htmlPop = $("#div_projects").html();
+
+            $("#popBtn").popover({
+                html: true,
+                container: 'body',
+                content: htmlPop
+            })
+        });
+    </script>    
+}

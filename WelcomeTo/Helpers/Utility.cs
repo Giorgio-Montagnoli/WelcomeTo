@@ -1,10 +1,74 @@
 ﻿using System.Collections.Generic;
 using WelcomeTo.Models;
+using WelcomeTo.Models.ViewModels;
 
 namespace WelcomeTo.Helpers
 {
     static class Utility
     {
+        public static List<ProjectCard> AllProject_1_Cards {
+            get {
+                    return new List<ProjectCard>
+                    {
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                    };
+                }
+        }
+
+        public static List<ProjectCard> AllProject_2_Cards
+        {
+            get
+            {
+                return new List<ProjectCard>
+                    {
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                    };
+            }
+        }
+
+        public static List<ProjectCard> AllProject_3_Cards
+        {
+            get
+            {
+                return new List<ProjectCard>
+                    {
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                        new ProjectCard { imgUrl = "/Content/Projects/retro.png" },
+                    };
+            }
+        }
         public static List<Card> AllCards
         {
             get
