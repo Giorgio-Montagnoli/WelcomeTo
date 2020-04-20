@@ -1,0 +1,17 @@
+﻿@model WelcomeTo.Models.IndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.Partial("Card", Model.CardOne)
+    </div>
+    <div class="col-md-4">
+        @Html.Partial("Card", Model.CardTwo)
+    </div>
+    <div class="col-md-4">
+        @Html.Partial("Card", Model.CardThree)
+    </div>
+</div>
+

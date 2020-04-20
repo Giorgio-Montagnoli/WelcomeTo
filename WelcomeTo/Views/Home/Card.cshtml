@@ -1,0 +1,40 @@
+﻿@model WelcomeTo.Card
+
+<style>
+    .img_container {
+      position: relative;
+      border: 1px solid black
+    }
+    .numberImg {
+      /*width: 100%;
+      height: auto;*/
+      display: block;
+      margin: 0 auto;
+    }
+    .iconImg {
+        width: 15%;
+        height:15%;
+        display: block;
+        margin-left: 10px;
+    }
+
+    .img_container h2 {
+      color: black;
+      position: absolute;
+      top: 50%;
+      left:  50%;
+      -webkit-transform: translate(-50%, -50%); /* iOS */
+      transform: translate(-50%, -50%);
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <div class="img_container">
+            <img src="@Model.ImgUrl" class="iconImg img-responsive" alt="Responsive image">    
+            <img src="~/Content/Templates/fronte.png" class="numberImg img-responsive" alt="Responsive image">
+            <h2> @Model.Number.ToString() </h2>
+            <img src="@Model.ImgUrl" class="iconImg img-responsive" alt="Responsive image">
+        </div>
+    </div>
+</div>
