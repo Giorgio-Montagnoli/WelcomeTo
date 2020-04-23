@@ -4,8 +4,32 @@
 }
 
 <br/>
-<div id="gameCont">
-@Html.Partial("GameCards", Model)
+<div class="tab-content">
+    <ul class="nav nav-pills">
+        <li class="active"><a data-toggle="pill" href="#home">Game</a></li>
+        <li><a data-toggle="pill" href="#menu1">Projects</a></li>
+    </ul>
+    <br />
+    <div class="tab-pane fade in active" id="home">
+        <div class="panel panel-info">
+            <div class="panel-heading">Game</div>
+            <div class="panel-body">
+                <div id="gameCont">
+                    @Html.Partial("GameCards", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="menu1">
+        <div class="panel panel-info">
+            <div class="panel-heading">Projects</div>
+            <div class="panel-body">
+                <div id="div_projects">
+                    @Html.Partial("PopoverPojects", Model.ProjectCards)
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <br />
@@ -14,14 +38,6 @@
         <input id="nextDraw" type="button" class="btn btn-primary" value="Pesca" />
     </div>
 </div>
-
-<div id="div_projects" style="display:none;">
-    @Html.Partial("PopoverPojects", Model.ProjectCards)
-</div>
-
-<a id="popBtn" tabindex="0" class="btn btn-lg btn-info" role="button" data-toggle="popover" data-trigger="focus" title="Projects">
-    Show Projects
-</a>
 
 @section scripts{
     <script type="text/javascript">
@@ -35,14 +51,17 @@
                     $("#gameCont").html(result);
                 });
             });
-
-            var htmlPop = $("#div_projects").html();
-
-            $("#popBtn").popover({
-                html: true,
-                container: 'body',
-                content: htmlPop
-            })
         });
+        
+        function ApproveProject(projectSelected){
+            $.ajax({
+                method: "get",
+                url: "@Url.Action("CompleteProjectAsync", "WelcomeTo")",
+                data: { idproject: projectSelected }
+                }).done(function (result) {
+                    $("#div_projects").empty();
+                    $("#div_projects").html(result);
+                });
+            };
     </script>    
 }
