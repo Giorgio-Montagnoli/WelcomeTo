@@ -1,13 +1,24 @@
 ﻿@model List<WelcomeTo.Models.ViewModels.ProjectCard>
 
-<div class="row" style="width:640px;height:250px;">
+<div class="row">
     @{
+        int i = 1;
         foreach (var item in Model)
         {
-
-            <div class="col-md-4">
-                <img src="@item.imgUrl" class="img-responsive">
+            <div class="col-md-4 text-center">
+                <img src="@item.imgUrl">
+                @{
+                    if (!item.Approved)
+                    {
+                        <button type="button" class="btn btn-success" title="Complete Project" onclick="ApproveProject(@i)">
+                            Complete
+                        </button>
+                    }
+                }
+                
             </div>
-        }
+
+            i = i + 1;
+         }
     }
 </div>
