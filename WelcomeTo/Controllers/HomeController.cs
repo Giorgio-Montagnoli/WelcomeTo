@@ -27,6 +27,18 @@ namespace WelcomeTo.Controllers
 
             return View(vm);
         }
+        
+        public PartialViewResult CompleteProjectAsync(int idproject)
+        {
+            var projects = (List<ProjectCard>)Session["projectCards"];
+
+            var projectToChange = projects.First(f => f.Id == idproject);
+
+            projectToChange.Approved = true;
+            var oldFilename = Path.GetFileNameWithoutExtension(projectToChange.imgUrl) ;
+            projectToChange.imgUrl = projectToChange.imgUrl.Replace(oldFilename, oldFilename + "_retro");
+            return PartialView("PopoverPojects", projects);
+        }
 
         public List<ProjectCard> DrawProjectCards()
         {
