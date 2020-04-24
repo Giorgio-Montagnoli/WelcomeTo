@@ -35,7 +35,8 @@
             };
 
             chat.client.gameStarted = function (gameId) {
-                var $playArea = $('#playarea').append('<span>Avvio</span>');
+                $('#start').remove();
+                $('#playarea').append('<span>Avvio</span>');
             };
 
             // Avvio connessione.
@@ -45,8 +46,6 @@
 
                 $('#start')
                     .click(function () {
-                        $(this).remove();
-
                         chat.server.startGame();
                     });
             });
