@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Welcome to... your perfect home";
+
+    var gameId = Request.Cookies[WelcomeTo.Helpers.Utility.COOKIE_GAME_ID].Value;
+    var name = Request.Cookies[WelcomeTo.Helpers.Utility.COOKIE_GAME_NAME].Value;
+}
+
+<div>
+    <div>
+        GameID: <i>@gameId</i>
+    </div>
+    <div>
+        Name: <b>@name</b>
+    </div>
+
+    <div id="playarea">
+        <input id="start" type="button" value="Avvia partita" />
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            // Declare a proxy to reference the hub.
+            var chat = $.connection.chatHub;
+
+            // Dati di connessione
+            chat.state.gameId = '@gameId';
+            chat.state.name = '@name';
+
+            // Funzioni di ritorno
+            chat.client.consoleLog = function (data) {
+                console.log(data);
+            };
+
+            chat.client.gameStarted = function (gameId) {
+                var $playArea = $('#playarea').append('<span>Avvio</span>');
+            };
+
+            // Avvio connessione.
+            $.connection.hub.start().done(function () {
+                chat.server.join(@gameId);
+                chat.server.hasJoined();
+
+                $('#start')
+                    .click(function () {
+                        $(this).remove();
+
+                        chat.server.startGame();
+                    });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Nuova partita";
+}
+
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.Label("name", "Nome")
+        @Html.TextBox("name")
+    </div>
+
+    <button type="submit">Crea</button>
+}
