@@ -230,6 +230,11 @@
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Game\StartANewGame.cshtml" />
     <Content Include="Views\Game\Join.cshtml" />
+    <Content Include="Views\Game\Game.cshtml" />
+    <Content Include="Views\Game\GameCards.cshtml" />
+    <Content Include="Views\Game\Card.cshtml" />
+    <Content Include="Views\Game\CardRetro.cshtml" />
+    <Content Include="Views\Game\PopoverPojects.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

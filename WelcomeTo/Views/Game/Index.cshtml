@@ -1,26 +1,79 @@
-﻿@{
+﻿@model WelcomeTo.Models.ViewModels.GameVM
+@{
     ViewBag.Title = "Welcome to... your perfect home";
 
     var gameId = Request.Cookies[WelcomeTo.Helpers.Utility.COOKIE_GAME_ID].Value;
     var name = Request.Cookies[WelcomeTo.Helpers.Utility.COOKIE_GAME_NAME].Value;
 }
 
-<div>
-    <div>
-        GameID: <i>@gameId</i>
-    </div>
-    <div>
-        Name: <b>@name</b>
-    </div>
+<br/>
+<div class="alert alert-info" role="alert">
+    GameID: <b><i>@gameId</i></b> ---- Player: <b>@name</b>
 
-    <div id="playarea">
-        <input id="start" type="button" value="Avvia partita" />
+    <input id="leaveRoom" type="button" class="btn btn-danger pull-right" value="leaveRoom" />
+</div>
+
+<div class="row form-group" id="playarea">
+    <input id="start" type="button" class="btn btn-success" value="Start Game" />
+</div>
+
+<div id="showPlayArea" style="display:none">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">Log</div>
+                <div class="panel-body">
+                    <div id="div_Log" style="overflow-y:scroll;height:588px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div id="gameCont"></div>
+        </div>
+    </div>
+    <div class="row" id="actions">
+        <div class="col-md-3 text-center">
+            <input id="numberPlaced" type="button" class="btn btn-info" value="Done" />
+        </div>
+        <div class="col-md-3 text-center">
+            <input id="cantPlace" type="button" class="btn btn-info" value="Can't place Number" />
+        </div>
+        <div class="col-md-3 text-center form-inline">
+            Complete Project
+            <select id="projCompleted" name="projCompleted" class="form-control">
+                <option value="0">choose</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        <div class="col-md-3 text-center">
+            <input id="drawNewCards" type="button" class="btn btn-success" value="Draw cards" />
+        </div>
     </div>
 </div>
 
 @section scripts
 {
     <script type="text/javascript">
+        function disableActions(){
+            $("#actions input").prop('disabled', 'disabled');
+            $("#projCompleted").prop('disabled', 'disabled');
+        }
+
+        function callGameRefresh()
+        {
+            $.ajax({
+                method: "get",
+                url: "@Url.Action("Game", "Game")"
+            }).done(function (result) {
+                $("#gameCont").empty();
+                $("#gameCont").html(result);
+            });
+        }
+
         $(function () {
             // Declare a proxy to reference the hub.
             var chat = $.connection.chatHub;
@@ -31,23 +84,75 @@
 
             // Funzioni di ritorno
             chat.client.consoleLog = function (data) {
-                console.log(data);
+                $("#div_Log").append("<div>" + data + "<div/>");
             };
 
             chat.client.gameStarted = function (gameId) {
                 $('#start').remove();
-                $('#playarea').append('<span>Avvio</span>');
+                $("#showPlayArea").show();
+
+                callGameRefresh();
+
+                $("#div_Log").append('<div>Partita iniziata!<div/>');
             };
+
+            chat.client.refreshDrawnCards = function () {
+                callGameRefresh();
+
+                $("#actions input").prop('disabled', false);
+                $("#projCompleted").prop('disabled', false);
+            }
+
+            chat.client.projectHasBeenCompleted = function (idproject) {
+                callGameRefresh();
+
+                //$("#projCompleted option[value='" + idproject + "']").remove();
+                //disableActions();
+            }
+
+            chat.client.cantPlaceNumber = function () {
+                disableActions();
+            }
+
+            chat.client.hasDone = function () {
+                disableActions();
+            }
 
             // Avvio connessione.
             $.connection.hub.start().done(function () {
                 chat.server.join(@gameId);
                 chat.server.hasJoined();
 
-                $('#start')
-                    .click(function () {
-                        chat.server.startGame();
-                    });
+                $('#start').click(function () {
+                    chat.server.startGame();
+                });
+
+                $('#numberPlaced').click(function () {
+                    chat.server.numberPlaced();
+                });
+
+                $('#cantPlace').click(function () {
+                    chat.server.cantPlace();
+                });
+
+                $('#projCompleted').on('change', function () {
+                    var idproject = $(this).val();
+
+                    if (idproject == 0)
+                    {
+                        return false;
+                    }
+                    chat.server.projectCompleted(idproject);
+                });
+
+                $('#drawNewCards').click(function () {
+                    chat.server.drawNewCards();
+                });
+
+                $('#leaveRoom').click(function () {
+                    chat.server.leave(@gameId);
+                    chat.server.hasLeft();
+                });
             });
         });
     </script>

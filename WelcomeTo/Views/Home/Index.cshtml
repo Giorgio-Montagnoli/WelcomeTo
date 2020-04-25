@@ -2,8 +2,9 @@
     ViewBag.Title = "Benvenuto";
 }
 
+<br/>
 <div class="tab-content">
-    @Html.ActionLink("Crea una nuova partita", "StartANewGame", "Game")
-    oppure
-    @Html.ActionLink("Unisciti una partita", "Join", "Game")
+    <a class="btn btn-info" href="@Url.Action("StartANewGame", "Game")">Create new Game</a>
+    or
+    <a class="btn btn-info" href="@Url.Action("Join", "Game")">Join an Existing Game</a>
 </div>

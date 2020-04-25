@@ -3,17 +3,16 @@
     ViewBag.Title = "Unisciti ad una partita";
 }
 
+<br/>
 @using (Html.BeginForm())
 {
-    <div>
+    <div class="alert alert-info" role="alert">
         @Html.Label("name", "Nome")
         @Html.TextBox("name")
-    </div>
 
-    <div>
         @Html.Label("gameId", "Game Id")
         @Html.TextBox("gameId")
     </div>
 
-    <button type="submit">Unisciti</button>
+    <button class="btn btn-success" type="submit">Join</button>
 }

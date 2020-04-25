@@ -3,12 +3,13 @@
     ViewBag.Title = "Nuova partita";
 }
 
+<br/>
 @using (Html.BeginForm())
 {
-    <div>
+    <div class="alert alert-info" role="alert">
         @Html.Label("name", "Nome")
         @Html.TextBox("name")
     </div>
 
-    <button type="submit">Crea</button>
+    <button class="btn btn-success" type="submit">Create</button>
 }
