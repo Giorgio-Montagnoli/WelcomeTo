@@ -15,6 +15,12 @@ namespace WelcomeTo
 
         public Task Leave(string gameId)
         {
+            var name = Clients.Caller.name as string;
+            var gameVM = MemoryCache.Default[gameId] as GameVM;
+            var player = gameVM.Players.First(f => f.Name == name);
+
+            gameVM.Players.Remove(player);
+
             return Groups.Remove(Context.ConnectionId, gameId);
         }
 
@@ -44,7 +50,12 @@ namespace WelcomeTo
 
             gameVM.PlayerHasPlacedNumber(player);
             Clients.Group(gameId).consoleLog($"{ name } ha completato la sua mossa");
-            Clients.Caller(gameId).hasDone();
+            Clients.Caller.hasDone();
+
+            if (gameVM.CanWePlayNextTurn())
+            {
+                Clients.Group(gameId).consoleLog($"<span style='color: green'>Tutti i giocatori hanno completato la propria mossa</span>");
+            }
         }
 
         public void CantPlace()
@@ -56,7 +67,12 @@ namespace WelcomeTo
             var player = gameVM.Players.First(f => f.Name == name);
             gameVM.PlayerCannotPlaceANumber(player);
             Clients.Group(gameId).consoleLog($"{ name } ha fallito nel piazzare un numero. Numero di fallimenti di {name}: {player.CannotPlaceANumber}");
-            Clients.Caller(gameId).cantPlaceNumber();
+            Clients.Caller.cantPlaceNumber();
+
+            if (gameVM.CanWePlayNextTurn())
+            {
+                Clients.Group(gameId).consoleLog($"<span style='color: green'>Tutti i giocatori hanno completato la propria mossa</span>");
+            }
         }
 
         public void ProjectCompleted(int idproject)
@@ -68,7 +84,8 @@ namespace WelcomeTo
             var player = gameVM.Players.First(f => f.Name == name);
             gameVM.PlayerHasCompletedAProject(player, idproject);
             Clients.Group(gameId).consoleLog($"{ name } ha completato il progetto {idproject}");
-            Clients.Group(gameId).projectHasBeenCompleted(idproject);
+            Clients.Caller.projectHasBeenCompleted(idproject);
+            Clients.Group(gameId).refreshGameForAll();
         }
 
         public void DrawNewCards()
@@ -78,8 +95,9 @@ namespace WelcomeTo
             var gameVM = MemoryCache.Default[gameId] as GameVM;
             
             gameVM.Draw();
-            Clients.Group(gameId).consoleLog($"*** { name } ha pescato tre nuove carte. Inizia il {gameVM.TurnNo}° Turno ***");
+            Clients.Group(gameId).consoleLog($"<span style='color:red'>*** { name } ha pescato tre nuove carte. TURNO {gameVM.TurnNo}° ***</span>");
             Clients.Group(gameId).refreshDrawnCards();
+            Clients.Group(gameId).refreshGameForAll();
         }
 
         public void StartGame()
@@ -90,8 +108,17 @@ namespace WelcomeTo
 
             gameVM.Start();
 
-            Clients.Group(gameId).consoleLog($"{ name } ha avviato la partita alle { gameVM.Started.Value }");
+            Clients.Group(gameId).consoleLog($"{ name } ha avviato la partita alle { gameVM.Started.Value }.");
             Clients.Group(gameId).gameStarted(gameId);
+            Clients.Group(gameId).refreshGameForAll();
+        }
+
+        public void SendChat(string msg)
+        {
+            var gameId = Clients.Caller.gameId as string;
+            var name = Clients.Caller.name as string;
+
+            Clients.Group(gameId).consoleLog($"<span style='color:#337ab7'><b>[ { name } ]</b> says: </span> { msg }");
         }
     }
 }

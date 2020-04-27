@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Web;
@@ -51,11 +55,14 @@ namespace WelcomeTo.Controllers
 
             MemoryCache.Default.Add(gameVM.Id, gameVM, new CacheItemPolicy());
 
+            //AddGameIdToJsonFile(gameVM.Id);
+
             return JoinAndWait(gameVM, name);
         }
 
         public ActionResult Join()
         {
+            //var vm = GetAvailableGames();
             return View();
         }
 
@@ -99,6 +106,51 @@ namespace WelcomeTo.Controllers
                 });
 
             return RedirectToAction("Index");
+        }
+
+        private List<string> GetAvailableGames()
+        {
+            var filePath = Server.MapPath(@"~/ActiveGames.json");
+            //JArray jsonFileRead = JArray.Parse(System.IO.File.ReadAllText(filePath));
+
+            var jsonFileRead = System.IO.File.ReadAllText(System.IO.File.ReadAllText(filePath));
+            var games = JsonConvert.DeserializeObject<List<string>>(jsonFileRead);
+
+            return games;
+        }
+
+        public void AddGameIdToJsonFile(string gameId)
+        {
+            var filePath = Server.MapPath(@"~/ActiveGames.json");
+            JArray jsonFileRead = JArray.Parse(System.IO.File.ReadAllText(filePath));
+
+            JObject obj = new JObject();
+            obj.Add("id", gameId);
+
+            jsonFileRead.Add(obj);
+
+            System.IO.File.WriteAllText(filePath, jsonFileRead.ToString());
+
+            // write JSON directly to a file
+            using (StreamWriter file = System.IO.File.CreateText(filePath))
+            using (JsonTextWriter writer = new JsonTextWriter(file))
+            {
+                jsonFileRead.WriteTo(writer);
+            }
+        }
+
+        public void RemoveGameIdFromJsonFile(string gameId)
+        {
+            var filePath = Server.MapPath(@"~/ActiveGames.json");
+            JArray jsonFileRead = JArray.Parse(System.IO.File.ReadAllText(filePath));
+
+            foreach (JObject elem in jsonFileRead)
+            {
+                foreach (var elementToRemove in new List<string>() { gameId })
+                {
+                    elem.Property(elementToRemove).Remove();
+                }
+            }
         }
     }
 }

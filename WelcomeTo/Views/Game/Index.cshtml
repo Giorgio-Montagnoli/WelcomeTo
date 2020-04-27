@@ -8,59 +8,25 @@
 
 <br/>
 <div class="alert alert-info" role="alert">
-    GameID: <b><i>@gameId</i></b> ---- Player: <b>@name</b>
+    GameID: <span id="gameIdTxt"><b><i>@gameId</i></b></span> ---- Player: <b>@name</b>
 
-    <input id="leaveRoom" type="button" class="btn btn-danger pull-right" value="leaveRoom" />
+    <input id="leaveRoom" type="button" class="btn btn-danger pull-right" value="Leave Room" />
 </div>
 
-<div class="row form-group" id="playarea">
+<div class="row form-group" id="waitingRoom">
     <input id="start" type="button" class="btn btn-success" value="Start Game" />
 </div>
 
 <div id="showPlayArea" style="display:none">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-info">
-                <div class="panel-heading">Log</div>
-                <div class="panel-body">
-                    <div id="div_Log" style="overflow-y:scroll;height:588px">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div id="gameCont"></div>
-        </div>
-    </div>
-    <div class="row" id="actions">
-        <div class="col-md-3 text-center">
-            <input id="numberPlaced" type="button" class="btn btn-info" value="Done" />
-        </div>
-        <div class="col-md-3 text-center">
-            <input id="cantPlace" type="button" class="btn btn-info" value="Can't place Number" />
-        </div>
-        <div class="col-md-3 text-center form-inline">
-            Complete Project
-            <select id="projCompleted" name="projCompleted" class="form-control">
-                <option value="0">choose</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-        </div>
-        <div class="col-md-3 text-center">
-            <input id="drawNewCards" type="button" class="btn btn-success" value="Draw cards" />
-        </div>
-    </div>
+    @Html.Partial("GameChatAndGame", "Game")
+    @Html.Partial("GameControls", "Game")
 </div>
 
 @section scripts
 {
     <script type="text/javascript">
         function disableActions(){
-            $("#actions input").prop('disabled', 'disabled');
-            $("#projCompleted").prop('disabled', 'disabled');
+            $(".gameControls").prop('disabled', 'disabled');
         }
 
         function callGameRefresh()
@@ -84,30 +50,26 @@
 
             // Funzioni di ritorno
             chat.client.consoleLog = function (data) {
-                $("#div_Log").append("<div>" + data + "<div/>");
+                $("#divLog").append("<div>" + data + "<div/>");
             };
 
             chat.client.gameStarted = function (gameId) {
-                $('#start').remove();
+                $('#waitingRoom').remove();
+                $('.divLog').empty();
                 $("#showPlayArea").show();
-
-                callGameRefresh();
-
-                $("#div_Log").append('<div>Partita iniziata!<div/>');
             };
 
             chat.client.refreshDrawnCards = function () {
-                callGameRefresh();
-
-                $("#actions input").prop('disabled', false);
-                $("#projCompleted").prop('disabled', false);
+                $(".gameControls").prop('disabled', false);
             }
 
             chat.client.projectHasBeenCompleted = function (idproject) {
-                callGameRefresh();
+                $("#projCompleted option[value='" + idproject + "']").remove();
+                $("#projCompleted").val("0");
+            }
 
-                //$("#projCompleted option[value='" + idproject + "']").remove();
-                //disableActions();
+            chat.client.refreshGameForAll = function () {
+                callGameRefresh();
             }
 
             chat.client.cantPlaceNumber = function () {
@@ -152,6 +114,22 @@
                 $('#leaveRoom').click(function () {
                     chat.server.leave(@gameId);
                     chat.server.hasLeft();
+                });
+
+                $("#sendMsg").click(function () {
+                    chat.server.sendChat($("#msgToSend").val());
+                    $("#msgToSend").val('');
+                });
+
+                //per intercettare la pressione del tasto [enter]
+                $('#msgToSend').bind("enterKey", function (e) {
+                    chat.server.sendChat($("#msgToSend").val());
+                    $("#msgToSend").val('');
+                });
+                $('#msgToSend').keyup(function (e) {
+                    if (e.keyCode == 13) {
+                        $(this).trigger("enterKey");
+                    }
                 });
             });
         });

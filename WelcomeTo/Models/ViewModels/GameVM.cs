@@ -91,6 +91,9 @@ namespace WelcomeTo.Models.ViewModels
                 }
 
                 TurnNo++;
+
+                //è un nuovo turno quindi tutti i giocatori tornano in stato di "mossa ancora da fare"
+                Players.ForEach(x => x.TurnDone = false);
             }
         }
 
