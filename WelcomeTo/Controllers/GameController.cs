@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Web;
@@ -130,6 +131,13 @@ namespace WelcomeTo.Controllers
 
         private List<GameListVM> GetAvailableGames()
         {
+            var dirPath = Server.MapPath(@"~/_db/");
+
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+
             var filePath = Server.MapPath(@"~/_db/ActiveGames.json");
 
             if (!System.IO.File.Exists(filePath))

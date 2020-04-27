@@ -234,9 +234,7 @@
     <Content Include="Views\Game\GameControls.cshtml" />
     <Content Include="Views\Game\AvailableGames.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="_db\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.Mvc;
 using WelcomeTo.Models.ViewModels;
 
@@ -9,6 +10,13 @@ namespace WelcomeTo.Controllers
     {
         public ActionResult Index()
         {
+            var dirPath = Server.MapPath(@"~/_db/");
+
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+
             var filePath = Server.MapPath(@"~/_db/ActiveGames.json");
 
             if (!System.IO.File.Exists(filePath))
