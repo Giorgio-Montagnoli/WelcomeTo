@@ -1,30 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WelcomeTo.Models;
-using WelcomeTo.Models.ViewModels;
 
 namespace WelcomeTo.Helpers
 {
-    static class Utility
+    public static class Utility
     {
+        public const string COOKIE_GAME_ID = "gameId";
+        public const string COOKIE_GAME_NAME = "gameName";
+
         public static List<ProjectCard> AllProject_1_Cards
         {
             get
             {
-                return new List<ProjectCard>
-                    {
-                        new ProjectCard { imgUrl = "/Content/Projects/1-01.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/1-02.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/1-03.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/1-04.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/1-05.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/1-06.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/1-07.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/1-08.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/1-09.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/1-10.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/1-11.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/1-12.png" },
-                    };
+                return Enumerable.Range(1, 6).Select(q => new ProjectCard { ImgUrl = $"/Content/Projects/1-0{ q }.png" }).ToList();
             }
         }
 
@@ -32,21 +21,7 @@ namespace WelcomeTo.Helpers
         {
             get
             {
-                return new List<ProjectCard>
-                    {
-                        new ProjectCard { imgUrl = "/Content/Projects/2-01.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/2-02.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/2-03.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/2-04.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/2-05.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/2-06.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/2-07.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/2-08.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/2-09.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/2-10.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/2-11.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/2-12.png" },
-                    };
+                return Enumerable.Range(1, 6).Select(q => new ProjectCard { ImgUrl = $"/Content/Projects/2-0{ q }.png" }).ToList();
             }
         }
 
@@ -54,24 +29,10 @@ namespace WelcomeTo.Helpers
         {
             get
             {
-                return new List<ProjectCard>
-                    {
-                        new ProjectCard { imgUrl = "/Content/Projects/3-01.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/3-02.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/3-03.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/3-04.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/3-05.png" },
-                        new ProjectCard { imgUrl = "/Content/Projects/3-06.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/3-07.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/3-08.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/3-09.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/3-10.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/3-11.png" },
-                        //new ProjectCard { imgUrl = "/Content/Projects/3-12.png" },
-                    };
+                return Enumerable.Range(1, 6).Select(q => new ProjectCard { ImgUrl = $"/Content/Projects/3-0{ q }.png" }).ToList();
             }
         }
-        
+
         public static List<Card> AllCards
         {
             get

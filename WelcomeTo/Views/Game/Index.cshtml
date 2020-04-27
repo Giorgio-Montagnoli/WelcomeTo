@@ -1,0 +1,141 @@
+﻿@model WelcomeTo.Models.ViewModels.GameVM
+@{
+    ViewBag.Title = "Welcome to... your perfect home";
+
+    // Per Rosco: Spostali tutti su JS e recuperali in JS dai cookie
+    var gameId = Request.Cookies[WelcomeTo.Helpers.Utility.COOKIE_GAME_ID].Value;
+    var name = Request.Cookies[WelcomeTo.Helpers.Utility.COOKIE_GAME_NAME].Value;
+}
+
+<br />
+<div class="alert alert-info" role="alert">
+    GameID: <span id="gameIdTxt"><b><i>@gameId</i></b></span> ---- Player: <b>@name</b>
+
+    <input id="leaveRoom" type="button" class="btn btn-danger pull-right" value="Leave Room" />
+</div>
+
+<div class="row form-group" id="waitingRoom">
+    <input id="start" type="button" class="btn btn-success" value="Start Game" />
+</div>
+
+<div id="showPlayArea" style="display:none">
+    @Html.Partial("GameChatAndGame", "Game")
+    @Html.Partial("GameControls", "Game")
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        function disableActions(){
+            $(".gameControls").prop('disabled', 'disabled');
+        }
+
+        function callGameRefresh()
+        {
+            $.ajax({
+                method: "get",
+                url: "@Url.Action("Game", "Game")"
+            }).done(function (result) {
+                $("#gameCont").empty();
+                $("#gameCont").html(result);
+            });
+        }
+
+        $(function () {
+            // Declare a proxy to reference the hub.
+            var chat = $.connection.chatHub;
+
+            // Dati di connessione
+            chat.state.gameId = '@gameId';
+            chat.state.name = '@name';
+
+            // Funzioni di ritorno
+            chat.client.showMessage = function (data) {
+                $("#divLog").append("<div>" + data + "<div/>");
+            };
+
+            chat.client.gameStarted = function (gameId) {
+                $('#waitingRoom').remove();
+                $('.divLog').empty();
+                $("#showPlayArea").show();
+            };
+
+            chat.client.refreshDrawnCards = function () {
+                $(".gameControls").prop('disabled', false);
+            }
+
+            chat.client.projectHasBeenCompleted = function (idproject) {
+                $("#projCompleted option[value='" + idproject + "']").remove();
+                $("#projCompleted").val("0");
+            }
+
+            chat.client.refreshGameForAll = function () {
+                callGameRefresh();
+            }
+
+            chat.client.cantPlaceNumber = function () {
+                disableActions();
+            }
+
+            chat.client.hasDone = function () {
+                disableActions();
+            }
+
+            // Avvio connessione.
+            $.connection.hub.start().done(function () {
+                chat.server.join(chat.state.gameId);
+                chat.server.hasJoined();
+
+                $('#start').click(function () {
+                    chat.server.startGame();
+
+                    // Chiamata AJAX a metodo per rimuovere da file il gioco
+                    $.get('/Game/GameStarted?gameId=' + chat.state.gameId);
+                });
+
+                $('#numberPlaced').click(function () {
+                    chat.server.numberPlaced();
+                });
+
+                $('#cantPlace').click(function () {
+                    chat.server.cantPlace();
+                });
+
+                $('#projCompleted').on('change', function () {
+                    var idproject = $(this).val();
+
+                    if (idproject == 0)
+                    {
+                        return false;
+                    }
+                    chat.server.projectCompleted(idproject);
+                });
+
+                $('#drawNewCards').click(function () {
+                    chat.server.drawNewCards();
+                });
+
+                $('#leaveRoom').click(function () {
+                    chat.server.leave(chat.state.gameId);
+                });
+
+                $("#sendMsg").click(function () {
+                    var $msgToSend = $("#msgToSend");
+
+                    chat.server.sendChat($msgToSend.val());
+                    $msgToSend.val('');
+                });
+
+                // per intercettare la pressione del tasto [enter]
+                $('#msgToSend').keyup(function (e) {
+                    if (e.keyCode == 13) {
+                        var $msgToSend = $("#msgToSend");
+
+                        chat.server.sendChat($msgToSend.val());
+                        $msgToSend.val('');
+                    }
+                });
+            });
+        });
+    </script>
+}

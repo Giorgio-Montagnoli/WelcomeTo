@@ -24,13 +24,13 @@
 
     .iconTopImg {
         top: 27px;
-        left: 68%;
+        left: 82%;
         transform: translate(-50%,-50%);
     }
 
     .iconBottomImg {
         top: 88%;
-        left: 32%;
+        left: 18%;
         transform: translate(-50%,-50%);
     }
 
@@ -55,12 +55,12 @@
 
     .numberTop {
         top: 12%;
-        left: 35.5%;
+        left: 26.5%;
         transform: translate(-50%,-50%);
     }
 
     .numberBottom {
         top: 87%;
-        left: 64.5%;
+        left: 74.5%;
         transform: translate(-50%,-50%);
     }
