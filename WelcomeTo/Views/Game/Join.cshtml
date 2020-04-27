@@ -1,4 +1,5 @@
-﻿
+﻿@model string
+
 @{
     ViewBag.Title = "Unisciti ad una partita";
 }
@@ -11,33 +12,8 @@
         @Html.TextBox("name")
 
         @Html.Label("gameId", "Game Id")
-        @Html.TextBox("gameId")
+        @Html.TextBox("gameId", Model)
     </div>
 
     <button class="btn btn-success" type="submit">Join a Specific Game</button>
 }
-
-@*<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-info">
-            <div class="panel-heading">Search Available Games</div>
-            <div class="panel-body">
-                <div class="form-group" style="overflow-y:scroll;height:540px">
-                    <table class="table table-responsive">
-                        <tr>
-                            <th>Game Id</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item</td>
-                                <td><input type="button" class="btn-block btn-success" value="Join" /></td>
-                            </tr>
-                        }
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@

@@ -138,6 +138,7 @@
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\ProjectCard.cs" />
+    <Compile Include="Models\ViewModels\GameListVM.cs" />
     <Compile Include="Models\ViewModels\GameVM.cs" />
     <Compile Include="ChatHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -199,7 +200,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\Welcome-To-Regolamento.pdf" />
     <Content Include="Content\Welcome-to.pdf" />
-    <Content Include="ActiveGames.json" />
     <None Include="Scripts\jquery-3.5.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.0.js" />
     <Content Include="Scripts\jquery-3.5.0.min.js" />
@@ -219,16 +219,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.old.cshtml" />
-    <Content Include="Views\Home\Card.cshtml" />
-    <Content Include="Views\Home\CardRetro.cshtml" />
-    <Content Include="Views\Home\GameCards.cshtml" />
-    <Content Include="Views\Home\PopoverPojects.cshtml" />
     <Content Include="Scripts\jquery-3.5.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.0.min.map" />
     <Content Include="Views\Game\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Game\StartANewGame.cshtml" />
     <Content Include="Views\Game\Join.cshtml" />
     <Content Include="Views\Game\Game.cshtml" />
@@ -240,7 +234,9 @@
     <Content Include="Views\Game\GameControls.cshtml" />
     <Content Include="Views\Game\AvailableGames.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="_db\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

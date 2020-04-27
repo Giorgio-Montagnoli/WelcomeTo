@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Web;
@@ -55,15 +53,18 @@ namespace WelcomeTo.Controllers
 
             MemoryCache.Default.Add(gameVM.Id, gameVM, new CacheItemPolicy());
 
-            //AddGameIdToJsonFile(gameVM.Id);
+            var gamesListVM = GetAvailableGames();
+
+            gamesListVM.Add(new GameListVM { Id = gameVM.Id, Players = new List<string> { name } });
+
+            SaveAvailableGames(gamesListVM);
 
             return JoinAndWait(gameVM, name);
         }
 
-        public ActionResult Join()
+        public ActionResult Join(string gameId)
         {
-            //var vm = GetAvailableGames();
-            return View();
+            return View((object)gameId);
         }
 
         [HttpPost]
@@ -84,8 +85,27 @@ namespace WelcomeTo.Controllers
                 return RedirectToAction("UsernameAlreadyUsed");
             }
 
+            var gamesListVM = GetAvailableGames();
+
+            var gameListVM = gamesListVM.FirstOrDefault(q => q.Id.Equals(gameId));
+            gameListVM.Players.Add(name);
+
+            SaveAvailableGames(gamesListVM);
+
             return JoinAndWait(gameVM, name);
         }
+
+        public void GameStarted(string gameId)
+        {
+            var gamesListVM = GetAvailableGames();
+
+            var gameListVM = gamesListVM.FirstOrDefault(q => q.Id.Equals(gameId));
+            gamesListVM.Remove(gameListVM);
+
+            SaveAvailableGames(gamesListVM);
+        }
+
+        #region Metodi private
 
         private ActionResult JoinAndWait(GameVM gameVM, string name)
         {
@@ -108,49 +128,25 @@ namespace WelcomeTo.Controllers
             return RedirectToAction("Index");
         }
 
-        private List<string> GetAvailableGames()
+        private List<GameListVM> GetAvailableGames()
         {
-            var filePath = Server.MapPath(@"~/ActiveGames.json");
-            //JArray jsonFileRead = JArray.Parse(System.IO.File.ReadAllText(filePath));
+            var filePath = Server.MapPath(@"~/_db/ActiveGames.json");
 
-            var jsonFileRead = System.IO.File.ReadAllText(System.IO.File.ReadAllText(filePath));
-            var games = JsonConvert.DeserializeObject<List<string>>(jsonFileRead);
-
-            return games;
-        }
-
-        public void AddGameIdToJsonFile(string gameId)
-        {
-            var filePath = Server.MapPath(@"~/ActiveGames.json");
-            JArray jsonFileRead = JArray.Parse(System.IO.File.ReadAllText(filePath));
-
-            JObject obj = new JObject();
-            obj.Add("id", gameId);
-
-            jsonFileRead.Add(obj);
-
-            System.IO.File.WriteAllText(filePath, jsonFileRead.ToString());
-
-            // write JSON directly to a file
-            using (StreamWriter file = System.IO.File.CreateText(filePath))
-            using (JsonTextWriter writer = new JsonTextWriter(file))
+            if (!System.IO.File.Exists(filePath))
             {
-                jsonFileRead.WriteTo(writer);
+                return new List<GameListVM>();
             }
+
+            return JsonConvert.DeserializeObject<List<GameListVM>>(System.IO.File.ReadAllText(filePath));
         }
 
-        public void RemoveGameIdFromJsonFile(string gameId)
+        private void SaveAvailableGames(List<GameListVM> gamesListVM)
         {
-            var filePath = Server.MapPath(@"~/ActiveGames.json");
-            JArray jsonFileRead = JArray.Parse(System.IO.File.ReadAllText(filePath));
+            var filePath = Server.MapPath(@"~/_db/ActiveGames.json");
 
-            foreach (JObject elem in jsonFileRead)
-            {
-                foreach (var elementToRemove in new List<string>() { gameId })
-                {
-                    elem.Property(elementToRemove).Remove();
-                }
-            }
+            System.IO.File.WriteAllText(filePath, JsonConvert.SerializeObject(gamesListVM));
         }
+
+        #endregion
     }
 }

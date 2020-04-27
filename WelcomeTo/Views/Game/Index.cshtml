@@ -2,11 +2,12 @@
 @{
     ViewBag.Title = "Welcome to... your perfect home";
 
+    // Per Rosco: Spostali tutti su JS e recuperali in JS dai cookie
     var gameId = Request.Cookies[WelcomeTo.Helpers.Utility.COOKIE_GAME_ID].Value;
     var name = Request.Cookies[WelcomeTo.Helpers.Utility.COOKIE_GAME_NAME].Value;
 }
 
-<br/>
+<br />
 <div class="alert alert-info" role="alert">
     GameID: <span id="gameIdTxt"><b><i>@gameId</i></b></span> ---- Player: <b>@name</b>
 
@@ -49,7 +50,7 @@
             chat.state.name = '@name';
 
             // Funzioni di ritorno
-            chat.client.consoleLog = function (data) {
+            chat.client.showMessage = function (data) {
                 $("#divLog").append("<div>" + data + "<div/>");
             };
 
@@ -82,11 +83,14 @@
 
             // Avvio connessione.
             $.connection.hub.start().done(function () {
-                chat.server.join(@gameId);
+                chat.server.join(chat.state.gameId);
                 chat.server.hasJoined();
 
                 $('#start').click(function () {
                     chat.server.startGame();
+
+                    // Chiamata AJAX a metodo per rimuovere da file il gioco
+                    $.get('/Game/GameStarted?gameId=' + chat.state.gameId);
                 });
 
                 $('#numberPlaced').click(function () {
@@ -112,23 +116,23 @@
                 });
 
                 $('#leaveRoom').click(function () {
-                    chat.server.leave(@gameId);
-                    chat.server.hasLeft();
+                    chat.server.leave(chat.state.gameId);
                 });
 
                 $("#sendMsg").click(function () {
-                    chat.server.sendChat($("#msgToSend").val());
-                    $("#msgToSend").val('');
+                    var $msgToSend = $("#msgToSend");
+
+                    chat.server.sendChat($msgToSend.val());
+                    $msgToSend.val('');
                 });
 
-                //per intercettare la pressione del tasto [enter]
-                $('#msgToSend').bind("enterKey", function (e) {
-                    chat.server.sendChat($("#msgToSend").val());
-                    $("#msgToSend").val('');
-                });
+                // per intercettare la pressione del tasto [enter]
                 $('#msgToSend').keyup(function (e) {
                     if (e.keyCode == 13) {
-                        $(this).trigger("enterKey");
+                        var $msgToSend = $("#msgToSend");
+
+                        chat.server.sendChat($msgToSend.val());
+                        $msgToSend.val('');
                     }
                 });
             });
