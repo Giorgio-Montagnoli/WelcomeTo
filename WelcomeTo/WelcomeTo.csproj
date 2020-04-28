@@ -205,6 +205,8 @@
     <Content Include="Scripts\jquery-3.5.0.min.js" />
     <Content Include="Scripts\jquery-3.5.0.slim.js" />
     <Content Include="Scripts\jquery-3.5.0.slim.min.js" />
+    <Content Include="Scripts\jquery.cookie-1.4.1.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.signalR-2.4.1.js" />
     <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -232,7 +234,6 @@
     <Content Include="Views\Game\PopoverPojects.cshtml" />
     <Content Include="Views\Game\GameChatAndGame.cshtml" />
     <Content Include="Views\Game\GameControls.cshtml" />
-    <Content Include="Views\Game\AvailableGames.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

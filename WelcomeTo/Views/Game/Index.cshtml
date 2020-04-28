@@ -1,17 +1,13 @@
 ﻿@model WelcomeTo.Models.ViewModels.GameVM
 @{
     ViewBag.Title = "Welcome to... your perfect home";
-
-    // Per Rosco: Spostali tutti su JS e recuperali in JS dai cookie
-    var gameId = Request.Cookies[WelcomeTo.Helpers.Utility.COOKIE_GAME_ID].Value;
-    var name = Request.Cookies[WelcomeTo.Helpers.Utility.COOKIE_GAME_NAME].Value;
 }
 
 <br />
 <div class="alert alert-info" role="alert">
-    GameID: <span id="gameIdTxt"><b><i>@gameId</i></b></span> ---- Player: <b>@name</b>
+    GameID: <span id="gameIdTxt" style="font-weight:bold"></span> ---- Player: <span id="gameNameTxt" style="font-weight:bold"></span>
 
-    <input id="leaveRoom" type="button" class="btn btn-danger pull-right" value="Leave Room" />
+        <input id="leaveRoom" type="button" class="btn btn-danger pull-right" value="Leave Room" />
 </div>
 
 <div class="row form-group" id="waitingRoom">
@@ -50,9 +46,15 @@
             // Declare a proxy to reference the hub.
             var chat = $.connection.chatHub;
 
+            var gameId = $.cookie('gameId');
+            var gameName = $.cookie('gameName');
+
+            $("#gameIdTxt").html(gameId);
+            $("#gameNameTxt").html(gameName);
+
             // Dati di connessione
-            chat.state.gameId = '@gameId';
-            chat.state.name = '@name';
+            chat.state.gameId = gameId;
+            chat.state.name = gameName;
 
             // Funzioni di ritorno
             chat.client.showMessage = function (data) {
