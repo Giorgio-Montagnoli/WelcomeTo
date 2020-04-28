@@ -21,7 +21,8 @@ namespace WelcomeTo
             var player = gameVM.Players.First(q => q.Name.Equals(name));
             gameVM.Players.Remove(player);
 
-            Clients.Group(gameId).showMessage($"{ name } ha lasciato la partita");
+            Clients.Group(gameId).showMessage($"{ name } has left the game");
+            Clients.Caller.hasLeft();
 
             return Groups.Remove(Context.ConnectionId, gameId);
         }
@@ -31,7 +32,7 @@ namespace WelcomeTo
             var gameId = Clients.Caller.gameId as string;
             var name = Clients.Caller.name as string;
 
-            Clients.Group(gameId).showMessage($"{ name } è entrato/a in partita");
+            Clients.Group(gameId).showMessage($"{ name } has joined the game");
         }
 
         public void NumberPlaced()
@@ -44,12 +45,13 @@ namespace WelcomeTo
 
             gameVM.PlayerHasPlacedNumber(player);
 
-            Clients.Group(gameId).showMessage($"{ name } ha completato la sua mossa");
+            Clients.Group(gameId).showMessage($"{ name } completed his/her turn.");
             Clients.Caller.hasDone();
 
             if (gameVM.CanWePlayNextTurn())
             {
-                Clients.Group(gameId).showMessage($"<span style='color: green'>Tutti i giocatori hanno completato la propria mossa</span>");
+                Clients.Group(gameId).showMessage($"<span style='color: green'>All players completed their turn.</span>");
+                DrawNewCards();
             }
         }
 
@@ -63,12 +65,13 @@ namespace WelcomeTo
 
             gameVM.PlayerCannotPlaceANumber(player);
 
-            Clients.Group(gameId).showMessage($"{ name } ha fallito nel piazzare un numero. Numero di fallimenti di {name}: {player.CannotPlaceANumber}");
+            Clients.Group(gameId).showMessage($"{ name } failed placing number. {name} failures: {player.CannotPlaceANumber}");
             Clients.Caller.cantPlaceNumber();
 
             if (gameVM.CanWePlayNextTurn())
             {
-                Clients.Group(gameId).showMessage($"<span style='color: green'>Tutti i giocatori hanno completato la propria mossa</span>");
+                Clients.Group(gameId).showMessage($"<span style='color: green'>All players completed their turn.</span>");
+                DrawNewCards();
             }
         }
 
@@ -82,7 +85,7 @@ namespace WelcomeTo
 
             gameVM.PlayerHasCompletedAProject(player, idproject);
 
-            Clients.Group(gameId).showMessage($"{ name } ha completato il progetto {idproject}");
+            Clients.Group(gameId).showMessage($"{ name } has completed project {idproject}");
             Clients.Caller.projectHasBeenCompleted(idproject);
             Clients.Group(gameId).refreshGameForAll();
         }
@@ -95,7 +98,7 @@ namespace WelcomeTo
 
             gameVM.Draw();
 
-            Clients.Group(gameId).showMessage($"<span style='color:red'>*** { name } ha pescato tre nuove carte. TURNO {gameVM.TurnNo}° ***</span>");
+            Clients.Group(gameId).showMessage($"<span style='color:red'>*** TURN {gameVM.TurnNo}° ***</span>");
             Clients.Group(gameId).refreshDrawnCards();
             Clients.Group(gameId).refreshGameForAll();
         }
@@ -108,7 +111,7 @@ namespace WelcomeTo
 
             gameVM.Start();
 
-            Clients.Group(gameId).showMessage($"{ name } ha avviato la partita alle { gameVM.Started.Value }.");
+            Clients.Group(gameId).showMessage($"{ name } started a game at { gameVM.Started.Value }.");
             Clients.Group(gameId).gameStarted(gameId);
             Clients.Group(gameId).refreshGameForAll();
         }

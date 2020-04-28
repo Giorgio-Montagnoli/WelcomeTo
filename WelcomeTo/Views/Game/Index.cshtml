@@ -26,6 +26,11 @@
 @section scripts
 {
     <script type="text/javascript">
+        function updateScrollDivLog() {
+            var element = document.getElementById("divLog");
+            element.scrollTop = element.scrollHeight;
+        }
+
         function disableActions(){
             $(".gameControls").prop('disabled', 'disabled');
         }
@@ -52,6 +57,7 @@
             // Funzioni di ritorno
             chat.client.showMessage = function (data) {
                 $("#divLog").append("<div>" + data + "<div/>");
+                updateScrollDivLog();
             };
 
             chat.client.gameStarted = function (gameId) {
@@ -79,6 +85,10 @@
 
             chat.client.hasDone = function () {
                 disableActions();
+            }
+
+            chat.client.hasLeft = function () {
+                window.location.replace('@Url.Action("Index", "Home")');
             }
 
             // Avvio connessione.
@@ -109,10 +119,6 @@
                         return false;
                     }
                     chat.server.projectCompleted(idproject);
-                });
-
-                $('#drawNewCards').click(function () {
-                    chat.server.drawNewCards();
                 });
 
                 $('#leaveRoom').click(function () {
