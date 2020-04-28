@@ -227,13 +227,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Game\StartANewGame.cshtml" />
     <Content Include="Views\Game\Join.cshtml" />
-    <Content Include="Views\Game\Game.cshtml" />
-    <Content Include="Views\Game\GameCards.cshtml" />
-    <Content Include="Views\Game\Card.cshtml" />
-    <Content Include="Views\Game\CardRetro.cshtml" />
-    <Content Include="Views\Game\PopoverPojects.cshtml" />
-    <Content Include="Views\Game\GameChatAndGame.cshtml" />
-    <Content Include="Views\Game\GameControls.cshtml" />
+    <Content Include="Views\Game\_game.cshtml" />
+    <Content Include="Views\Game\_gameCards.cshtml" />
+    <Content Include="Views\Game\_card.cshtml" />
+    <Content Include="Views\Game\_cardRetro.cshtml" />
+    <Content Include="Views\Game\_popoverPojects.cshtml" />
+    <Content Include="Views\Game\_gameChatAndGame.cshtml" />
+    <Content Include="Views\Game\_gameControls.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -10,7 +10,7 @@
         <div class="panel panel-info">
             <div class="panel-heading">Game</div>
             <div class="panel-body">
-                @Html.Partial("GameCards", Model)
+                @Html.Partial("_gameCards", Model)
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
             <div class="panel-heading">Projects</div>
             <div class="panel-body">
                 <div id="div_projects">
-                    @Html.Partial("PopoverPojects", Model.SelectedProjects)
+                    @Html.Partial("_popoverPojects", Model.SelectedProjects)
                 </div>
             </div>
         </div>

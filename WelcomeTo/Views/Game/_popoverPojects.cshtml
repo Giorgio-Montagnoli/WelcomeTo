@@ -1,0 +1,11 @@
+﻿@model List<WelcomeTo.Models.ProjectCard>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 text-center">
+            <img src="@item.ImgUrl">
+        </div>
+    }
+</div>
+

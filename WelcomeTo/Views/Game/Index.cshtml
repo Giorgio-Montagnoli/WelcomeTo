@@ -5,18 +5,23 @@
 
 <br />
 <div class="alert alert-info" role="alert">
-    GameID: <span id="gameIdTxt" style="font-weight:bold"></span> ---- Player: <span id="gameNameTxt" style="font-weight:bold"></span>
+    GameID: <span id="gameIdTxt" style="font-weight:bold"></span> 
+    ---- 
+    Player: <span id="gameNameTxt" style="font-weight:bold"></span>
 
-        <input id="leaveRoom" type="button" class="btn btn-danger pull-right" value="Leave Room" />
+    <input id="leaveRoom" type="button" class="btn btn-danger pull-right" value="Leave Room" />
 </div>
 
 <div class="row form-group" id="waitingRoom">
     <input id="start" type="button" class="btn btn-success" value="Start Game" />
 </div>
 
-<div id="showPlayArea" style="display:none">
-    @Html.Partial("GameChatAndGame", "Game")
-    @Html.Partial("GameControls", "Game")
+<div id="showPlayArea">
+    @Html.Partial("_gameChatAndGame", "Game")
+
+    <div id="gameControls" style="display: none;">
+        @Html.Partial("_gameControls", "Game")
+    </div>
 </div>
 
 @section scripts
@@ -35,9 +40,8 @@
         {
             $.ajax({
                 method: "get",
-                url: "@Url.Action("Game", "Game")"
+                url: "/Game",
             }).done(function (result) {
-                $("#gameCont").empty();
                 $("#gameCont").html(result);
             });
         }
@@ -64,33 +68,16 @@
 
             chat.client.gameStarted = function (gameId) {
                 $('#waitingRoom').remove();
-                $('.divLog').empty();
-                $("#showPlayArea").show();
+                $("#gameControls").show();
+                callGameRefresh();
             };
 
             chat.client.refreshDrawnCards = function () {
                 $(".gameControls").prop('disabled', false);
             }
 
-            chat.client.projectHasBeenCompleted = function (idproject) {
-                $("#projCompleted option[value='" + idproject + "']").remove();
-                $("#projCompleted").val("0");
-            }
-
             chat.client.refreshGameForAll = function () {
                 callGameRefresh();
-            }
-
-            chat.client.cantPlaceNumber = function () {
-                disableActions();
-            }
-
-            chat.client.hasDone = function () {
-                disableActions();
-            }
-
-            chat.client.hasLeft = function () {
-                window.location.replace('@Url.Action("Index", "Home")');
             }
 
             // Avvio connessione.
@@ -107,10 +94,12 @@
 
                 $('#numberPlaced').click(function () {
                     chat.server.numberPlaced();
+                    disableActions();
                 });
 
                 $('#cantPlace').click(function () {
                     chat.server.cantPlace();
+                    disableActions();
                 });
 
                 $('#projCompleted').on('change', function () {
@@ -120,11 +109,17 @@
                     {
                         return false;
                     }
+
+                    $("#projCompleted option[value='" + idproject + "']").remove();
+                    $(this).val("0");
+
                     chat.server.projectCompleted(idproject);
+                    disableActions();
                 });
 
                 $('#leaveRoom').click(function () {
                     chat.server.leave(chat.state.gameId);
+                    window.location.replace('/');
                 });
 
                 $("#sendMsg").click(function () {

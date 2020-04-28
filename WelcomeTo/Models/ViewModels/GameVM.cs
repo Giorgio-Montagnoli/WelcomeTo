@@ -56,12 +56,16 @@ namespace WelcomeTo.Models.ViewModels
             TurnNo = 1;
         }
 
-        public void Start()
+        public bool Start()
         {
             if (!Started.HasValue && Players.Any())
             {
                 Started = DateTime.Now;
+
+                return true;
             }
+
+            return false;
         }
 
         public void Draw()

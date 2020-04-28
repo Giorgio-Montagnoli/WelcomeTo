@@ -30,16 +30,12 @@ namespace WelcomeTo.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_game", gameVM);
+            }
+
             return View(gameVM);
-        }
-
-        public PartialViewResult Game()
-        {
-            var cookieGameId = Request.Cookies.Get(Utility.COOKIE_GAME_ID);
-
-            var gameVM = MemoryCache.Default[cookieGameId.Value] as GameVM;
-
-            return PartialView(gameVM);
         }
 
         public ActionResult StartANewGame()
