@@ -81,6 +81,19 @@ namespace WelcomeTo
             CanWePlayNextTurn($"{ name } has completed project { idproject }", gameVM, gameId);
         }
 
+        public void AllNumbersPlaced()
+        {
+            var gameId = Clients.Caller.gameId as string;
+            var name = Clients.Caller.name as string;
+
+            var gameVM = MemoryCache.Default[gameId] as GameVM;
+            var player = gameVM.Players.First(q => q.Name.Equals(name));
+
+            gameVM.PlayerHasPlacedAllNumbers(player);
+
+            CanWePlayNextTurn($"{ name } has placed all numbers", gameVM, gameId);
+        }
+
         private void CanWePlayNextTurn(string message, GameVM gameVM, string gameId)
         {
             Clients.Group(gameId).showMessage(message);

@@ -3,7 +3,7 @@
 <div class="row">
     @foreach (var item in Model.CurrentIcons)
     {
-        <div class="col-md-4">
+        <div class="col-xs-4 col-md-4">
             @Html.Partial("_cardRetro", item)
         </div>
     }
@@ -13,7 +13,7 @@
 <div class="row">
     @foreach (var item in Model.CurrentNumbers)
     {
-        <div class="col-md-4">
+        <div class="col-xs-4 col-md-4">
             @Html.Partial("_card", item)
         </div>
     }

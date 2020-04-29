@@ -3,14 +3,21 @@
 <div class="row form-group">
     <div class="col-md-12 text-center">
         <div class="img_container">
-            <img src="~/Content/Templates/fronte.png" class="numberImg">
-            <img src="@Model.ImgUrl" class="iconImg iconBottomImg">
-            <img src="@Model.ImgUrl" class="iconImg iconTopImg">
-            <img src="~/Content/Templates/Fronte-angoli.png" class="retroImg">
-            <span class="numberIcon numberTop">@Model.Number</span>
-            <span class="numberIcon numberBottom">@Model.Number</span>
-            <h2> @Model.Number </h2>
+            <img src="~/Content/Templates/fronte.png" class="numberImg hidden-xs">
+            <img src="@Model.ImgUrl" class="iconImg iconBottomImg hidden-xs">
+            <img src="@Model.ImgUrl" class="iconImg iconTopImg hidden-xs">
+            <img src="~/Content/Templates/Fronte-angoli.png" class="retroImg hidden-xs">
+            <span class="numberIcon numberTop hidden-xs">@Model.Number</span>
+            <span class="numberIcon numberBottom hidden-xs">@Model.Number</span>
+            
+            <div class="thumbnail visible-xs">
+                <img src="~/Content/Templates/retro.png" class="numberImg iconsMobile">
+                <h2> @Model.Number </h2>
+            </div>
         </div>
+    </div>
+    <div class="col-xs-12 visible-xs"> 
+        next:<img src="@Model.ImgUrl" class="iconsNextMobile">
     </div>
 </div>
 

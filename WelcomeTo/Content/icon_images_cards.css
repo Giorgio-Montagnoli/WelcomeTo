@@ -64,3 +64,28 @@
         left: 74.5%;
         transform: translate(-50%,-50%);
     }
+
+    @media (max-width: 768px) {     
+      .iconsMobile{
+        width:90%;
+      }
+
+      .iconsNextMobile{
+        width:50%;
+      }
+
+        #divLog {
+            height:200px !important;
+        }
+
+        .img_container h2{
+            top: 30%;
+            left: 50%;
+        }
+    }
+
+.buttonIcons {
+    text-decoration:none !important;
+    font-size: 18px;
+    cursor:pointer;
+}
