@@ -22,7 +22,10 @@ namespace WelcomeTo.Models
                     if (_approved)
                     {
                         var fileName = Path.GetFileNameWithoutExtension(ImgUrl);
-                        ImgUrl = ImgUrl.Replace(fileName, fileName + "_retro");
+                        if (!fileName.Contains("_retro"))
+                        {
+                            ImgUrl = ImgUrl.Replace(fileName, fileName + "_retro");
+                        }
                     }
                     else
                     {
