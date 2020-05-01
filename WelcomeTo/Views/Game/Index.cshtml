@@ -3,22 +3,7 @@
     ViewBag.Title = "Welcome to... your perfect home";
 }
 
-<br />
-<div class="alert alert-info" role="alert">
-    <div class="row">
-        <div class="col-md-6">
-            GameID: <span id="gameIdTxt" style="font-weight:bold"></span>
-        </div>
-        <div class="col-md-6">
-            <input id="leaveRoom" type="button" class="btn btn-danger pull-right" value="Leave Room" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            Player: <span id="gameNameTxt" style="font-weight:bold"></span>
-        </div>
-    </div>
-</div>
+<br/>
 
 <div class="row form-group" id="waitingRoom">
     <div class="col-md-12">
@@ -26,12 +11,18 @@
     </div>
 </div>
 
-<div id="showPlayArea">
+<div id="showPlayArea" class="form-group">
     @Html.Partial("_gameChatAndGame", "Game")
     <div id="gameControls" style="display: none;">
         @Html.Partial("_gameControls", "Game")
     </div>
 </div>
+
+@Html.Partial("_playerGameInfo", "Game")
+
+<audio>
+    <source src="~/Content/Sounds/Pop.mp3" />
+</audio>
 
 @section scripts
 {
@@ -87,6 +78,8 @@
 
             chat.client.refreshGameForAll = function () {
                 callGameRefresh();
+                var audio = $("audio")[0];
+                audio.play();
             }
 
             // Avvio connessione.
@@ -101,7 +94,8 @@
                     $.get('/Game/GameStarted?gameId=' + chat.state.gameId);
                 });
 
-                $('#numberPlaced').click(function () {
+                
+                $(document).on("click", '#numberPlaced', function (event) {
                     chat.server.numberPlaced();
                     disableActions();
                 });

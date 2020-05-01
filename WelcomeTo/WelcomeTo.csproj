@@ -184,6 +184,7 @@
     <Content Include="Content\Projects\3-05_retro.png" />
     <Content Include="Content\Projects\3-06.png" />
     <Content Include="Content\Projects\3-06_retro.png" />
+    <Content Include="Content\Sounds\Pop.mp3" />
     <Content Include="Content\Templates\bis.png" />
     <Content Include="Content\Templates\fence.png" />
     <Content Include="Content\Templates\Fronte-angoli.png" />
@@ -234,6 +235,7 @@
     <Content Include="Views\Game\_popoverPojects.cshtml" />
     <Content Include="Views\Game\_gameChatAndGame.cshtml" />
     <Content Include="Views\Game\_gameControls.cshtml" />
+    <Content Include="Views\Game\_playerGameInfo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
